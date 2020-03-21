@@ -14,7 +14,7 @@ public class AppConfig {
      */
     public @Bean
     MongoClient mongoClient() {
-        MongoClientURI uri = new MongoClientURI("mongodb://stimmungsbarometer-db:qNhQ4pFV7adTmN0iXCHzq4qFaNSayDp7eqWi9DX3TJhaMsMSqS1nYvQi58tebgKYxNHJvkZBz0alKJrlQI3e0w==@stimmungsbarometer-db.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@stimmungsbarometer-db@");
+        MongoClientURI uri = new MongoClientURI("mongodb://stimmungsbarometer-db:qNhQ4pFV7adTmN0iXCHzq4qFaNSayDp7eqWi9DX3TJhaMsMSqS1nYvQi58tebgKYxNHJvkZBz0alKJrlQI3e0w==@stimmungsbarometer-db.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&maxIdleTimeMS=120000&retrywrites=false&appName=@stimmungsbarometer-db@");
         return new MongoClient(uri);
     }
 }
