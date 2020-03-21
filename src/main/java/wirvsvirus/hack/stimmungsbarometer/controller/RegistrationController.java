@@ -37,14 +37,19 @@ public class RegistrationController {
     public ResponseEntity<?> mood(String id) {
         List<QuestionnaireResponseResource> result = mongoTemplate.find(query(where("userId").is(id)), QuestionnaireResponseResource.class);
 
-        Map<String, Integer> values = new HashMap<>();
-        for (QuestionnaireResponseResource questionnaireResponseResource : result) {
-            List<Response<Integer>> moodResponses = questionnaireResponseResource.getMoodResponses();
-            for (Response<Integer> moodResponse : moodResponses) {
-                values.put(questionnaireResponseResource.getResponseDate(), moodResponse.getResponse());
+        Map<String, Map> response = new HashMap<>();
+        for (QuestionnaireResponseResource r : result) {
+            for (Response<Integer> integerResponse : r.getMoodResponses()) {
+                Map innerMap = response.computeIfAbsent(integerResponse.getQuestionId(), map -> new HashMap());
+                innerMap.put(r.getResponseDate(), integerResponse.getResponse());
             }
         }
 
-        return ResponseEntity.ok(values);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<?> health(String id) {
+        return null;
     }
 }
