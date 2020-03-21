@@ -1,15 +1,18 @@
 package com.example.demo.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
-public class QuestionnaireResponse {
+public class QuestionnaireResponseResource {
+
+    @Id
+    private String id;
 
     private String userId;
-    private LocalDate responseDate;
+    private String responseDate;
     private List<Response<Integer>> moodResponses;
-    private List<Response<LocalTime>> healthResponses;
+    private List<Response<SimpleTime>> healthResponses;
 
     public String getUserId() {
         return userId;
@@ -17,14 +20,16 @@ public class QuestionnaireResponse {
 
     public void setUserId(String userId) {
         this.userId = userId;
+        this.id = (null == userId ? "" : userId) + (null == responseDate ? "" : responseDate);
     }
 
-    public LocalDate getResponseDate() {
+    public String getResponseDate() {
         return responseDate;
     }
 
-    public void setResponseDate(LocalDate responseDate) {
+    public void setResponseDate(String responseDate) {
         this.responseDate = responseDate;
+        this.id = (null == userId ? "" : userId) + (null == responseDate ? "" : responseDate);
     }
 
     public List<Response<Integer>> getMoodResponses() {
@@ -35,11 +40,11 @@ public class QuestionnaireResponse {
         this.moodResponses = moodResponses;
     }
 
-    public List<Response<LocalTime>> getHealthResponses() {
+    public List<Response<SimpleTime>> getHealthResponses() {
         return healthResponses;
     }
 
-    public void setHealthResponses(List<Response<LocalTime>> healthResponses) {
+    public void setHealthResponses(List<Response<SimpleTime>> healthResponses) {
         this.healthResponses = healthResponses;
     }
 }
