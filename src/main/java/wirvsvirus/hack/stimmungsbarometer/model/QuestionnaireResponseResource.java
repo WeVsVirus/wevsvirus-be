@@ -2,6 +2,7 @@ package wirvsvirus.hack.stimmungsbarometer.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class QuestionnaireResponseResource {
@@ -13,6 +14,15 @@ public class QuestionnaireResponseResource {
     private String responseDate;
     private List<Response<Integer>> moodResponses;
     private List<Response<SimpleTime>> healthResponses;
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public String getUserId() {
         return userId;
