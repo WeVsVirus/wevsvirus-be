@@ -1,4 +1,4 @@
-T http://localhost:8080/register
+POST http://localhost:8080/register
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
