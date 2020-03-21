@@ -27,7 +27,7 @@ public class HelloWorldController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> hello(@RequestBody PersonResource personResource) {
+    public ResponseEntity<?> register(@RequestBody PersonResource personResource) {
         mongoTemplate.insert(personResource);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
