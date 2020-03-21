@@ -1,14 +1,14 @@
 package com.example.demo.model;
 
 public class Response<T> {
-    private int questionId;
+    private String questionId;
     private T response;
 
-    public int getQuestionId() {
+    public String getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(int questionId) {
+    public void setQuestionId(String questionId) {
         this.questionId = questionId;
     }
 
