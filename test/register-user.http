@@ -1,0 +1,9 @@
+T http://localhost:8080/register
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"id":"5443543","gender":"MALE","yearOfBirth":1988,"plz":123,"householdSize":1,"pet":true}
+
+###
+
