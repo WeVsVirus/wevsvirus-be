@@ -5,6 +5,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class AppConfig {
@@ -16,5 +18,15 @@ public class AppConfig {
     MongoClient mongoClient() {
         MongoClientURI uri = new MongoClientURI("mongodb://stimmungsbarometer-db:qNhQ4pFV7adTmN0iXCHzq4qFaNSayDp7eqWi9DX3TJhaMsMSqS1nYvQi58tebgKYxNHJvkZBz0alKJrlQI3e0w==@stimmungsbarometer-db.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&maxIdleTimeMS=120000&retrywrites=false&appName=@stimmungsbarometer-db@");
         return new MongoClient(uri);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
     }
 }
