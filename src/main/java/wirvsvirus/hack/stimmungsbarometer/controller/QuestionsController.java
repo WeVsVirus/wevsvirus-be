@@ -1,7 +1,9 @@
 package wirvsvirus.hack.stimmungsbarometer.controller;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +19,9 @@ public class QuestionsController {
     }
 
     @PostMapping(value = "/questionnaire", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void postQuestionnaireRepsonses(@RequestBody QuestionnaireResponseResource response) {
+    public ResponseEntity<?> postQuestionnaireRepsonses(@RequestBody QuestionnaireResponseResource response) {
         mongoTemplate.save(response);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }
