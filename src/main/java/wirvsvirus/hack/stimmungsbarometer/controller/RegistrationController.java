@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wirvsvirus.hack.stimmungsbarometer.model.PersonResource;
 import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 import wirvsvirus.hack.stimmungsbarometer.model.Response;
+import wirvsvirus.hack.stimmungsbarometer.model.SimpleTime;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,14 +38,29 @@ public class RegistrationController {
     public ResponseEntity<?> mood(String id) {
         List<QuestionnaireResponseResource> result = mongoTemplate.find(query(where("userId").is(id)), QuestionnaireResponseResource.class);
 
-        Map<String, Integer> values = new HashMap<>();
-        for (QuestionnaireResponseResource questionnaireResponseResource : result) {
-            List<Response<Integer>> moodResponses = questionnaireResponseResource.getMoodResponses();
-            for (Response<Integer> moodResponse : moodResponses) {
-                values.put(questionnaireResponseResource.getResponseDate(), moodResponse.getResponse());
+        Map<String, Map> response = new HashMap<>();
+        for (QuestionnaireResponseResource r : result) {
+            for (Response<Integer> integerResponse : r.getMoodResponses()) {
+                Map innerMap = response.computeIfAbsent(integerResponse.getQuestionId(), map -> new HashMap());
+                innerMap.put(r.getResponseDate(), integerResponse.getResponse());
             }
         }
 
-        return ResponseEntity.ok(values);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<?> health(String id) {
+        List<QuestionnaireResponseResource> result = mongoTemplate.find(query(where("userId").is(id)), QuestionnaireResponseResource.class);
+
+        Map<String, Map> response = new HashMap<>();
+        for (QuestionnaireResponseResource r : result) {
+            for (Response<SimpleTime> integerResponse : r.getHealthResponses()) {
+                Map innerMap = response.computeIfAbsent(integerResponse.getQuestionId(), map -> new HashMap());
+                innerMap.put(r.getResponseDate(), integerResponse.getResponse());
+            }
+        }
+
+        return ResponseEntity.ok(response);
     }
 }
