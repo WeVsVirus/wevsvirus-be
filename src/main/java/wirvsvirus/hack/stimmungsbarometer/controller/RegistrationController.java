@@ -1,7 +1,5 @@
-package com.example.demo;
+package wirvsvirus.hack.stimmungsbarometer.controller;
 
-import com.example.demo.model.QuestionnaireResponseResource;
-import com.example.demo.model.Response;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import wirvsvirus.hack.stimmungsbarometer.model.PersonResource;
+import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
+import wirvsvirus.hack.stimmungsbarometer.model.Response;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,11 +19,11 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 @RestController
-public class HelloWorldController {
+public class RegistrationController {
 
     private MongoTemplate mongoTemplate;
 
-    public HelloWorldController(MongoTemplate mongoTemplate) {
+    public RegistrationController(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 

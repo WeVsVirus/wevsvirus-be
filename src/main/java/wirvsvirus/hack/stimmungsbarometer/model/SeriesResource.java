@@ -1,4 +1,4 @@
-package com.example.demo;
+package wirvsvirus.hack.stimmungsbarometer.model;
 
 import java.util.Map;
 

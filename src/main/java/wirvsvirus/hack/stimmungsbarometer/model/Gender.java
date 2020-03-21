@@ -1,4 +1,4 @@
-package com.example.demo;
+package wirvsvirus.hack.stimmungsbarometer.model;
 
 public enum Gender {
 

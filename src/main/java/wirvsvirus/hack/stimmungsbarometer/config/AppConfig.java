@@ -1,4 +1,4 @@
-package com.example.demo;
+package wirvsvirus.hack.stimmungsbarometer.config;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;

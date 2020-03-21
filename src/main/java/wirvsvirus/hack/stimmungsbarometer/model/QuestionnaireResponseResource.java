@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package wirvsvirus.hack.stimmungsbarometer.model;
 
 import org.springframework.data.annotation.Id;
 

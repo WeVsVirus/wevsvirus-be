@@ -1,11 +1,11 @@
-package com.example.demo;
+package wirvsvirus.hack.stimmungsbarometer.controller;
 
-import com.example.demo.model.QuestionnaireResponseResource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 
 @RestController
 public class QuestionsController {

@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package wirvsvirus.hack.stimmungsbarometer.model;
 
 public class Response<T> {
     private String questionId;
