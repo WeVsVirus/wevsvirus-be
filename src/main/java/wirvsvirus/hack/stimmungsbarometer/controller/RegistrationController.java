@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wirvsvirus.hack.stimmungsbarometer.model.PersonResource;
 import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 import wirvsvirus.hack.stimmungsbarometer.model.Response;
+import wirvsvirus.hack.stimmungsbarometer.model.SimpleTime;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,16 @@ public class RegistrationController {
 
     @GetMapping("/health")
     public ResponseEntity<?> health(String id) {
-        return null;
+        List<QuestionnaireResponseResource> result = mongoTemplate.find(query(where("userId").is(id)), QuestionnaireResponseResource.class);
+
+        Map<String, Map> response = new HashMap<>();
+        for (QuestionnaireResponseResource r : result) {
+            for (Response<SimpleTime> integerResponse : r.getHealthResponses()) {
+                Map innerMap = response.computeIfAbsent(integerResponse.getQuestionId(), map -> new HashMap());
+                innerMap.put(r.getResponseDate(), integerResponse.getResponse());
+            }
+        }
+
+        return ResponseEntity.ok(response);
     }
 }
