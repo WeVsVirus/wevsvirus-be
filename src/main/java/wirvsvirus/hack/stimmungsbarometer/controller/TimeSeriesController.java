@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 import wirvsvirus.hack.stimmungsbarometer.model.Response;
-import wirvsvirus.hack.stimmungsbarometer.model.SimpleTime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +48,7 @@ public class TimeSeriesController {
 
         Map<String, Map> response = new HashMap<>();
         for (QuestionnaireResponseResource r : result) {
-            for (Response<SimpleTime> integerResponse : r.getHealthResponses()) {
+            for (Response<Double> integerResponse : r.getHealthResponses()) {
                 Map innerMap = response.computeIfAbsent(integerResponse.getQuestionId(), map -> new HashMap());
                 innerMap.put(r.getResponseDate(), integerResponse.getResponse());
             }
