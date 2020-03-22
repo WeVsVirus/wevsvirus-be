@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 import wirvsvirus.hack.stimmungsbarometer.model.Response;
-import wirvsvirus.hack.stimmungsbarometer.model.SimpleTime;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class GenerateTestDataController {
         }
         qr.setMoodResponses(moodResponses);
 
-        List<Response<SimpleTime>> healthResponses = new ArrayList<>();
+        List<Response<Double>> healthResponses = new ArrayList<>();
         for (String healthId : healthIds) {
             healthResponses.add(generateRandomHealthResponseFor(healthId));
         }
@@ -67,13 +66,10 @@ public class GenerateTestDataController {
     }
 
 
-    private Response<SimpleTime> generateRandomHealthResponseFor(String moodId) {
-        Response<SimpleTime> response = new Response<>();
+    private Response<Double> generateRandomHealthResponseFor(String moodId) {
+        Response<Double> response = new Response<>();
         response.setQuestionId(moodId);
-        SimpleTime time = new SimpleTime();
-        time.setHours(random.nextInt(10));
-        time.setMinutes(random.nextInt(59));
-        response.setResponse(time);
+        response.setResponse(random.nextInt(15) + random.nextDouble());
         return response;
     }
 

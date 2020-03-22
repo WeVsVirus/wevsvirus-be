@@ -13,7 +13,7 @@ public class QuestionnaireResponseResource {
     private String userId;
     private String responseDate;
     private List<Response<Integer>> moodResponses;
-    private List<Response<SimpleTime>> healthResponses;
+    private List<Response<Double>> healthResponses;
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     public LocalDateTime getUpdatedAt() {
@@ -50,11 +50,11 @@ public class QuestionnaireResponseResource {
         this.moodResponses = moodResponses;
     }
 
-    public List<Response<SimpleTime>> getHealthResponses() {
+    public List<Response<Double>> getHealthResponses() {
         return healthResponses;
     }
 
-    public void setHealthResponses(List<Response<SimpleTime>> healthResponses) {
+    public void setHealthResponses(List<Response<Double>> healthResponses) {
         this.healthResponses = healthResponses;
     }
 }
