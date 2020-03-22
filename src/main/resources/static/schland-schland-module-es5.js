@@ -568,12 +568,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     LeafletLayersDemoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: LeafletLayersDemoComponent,
       selectors: [["leafletLayersDemo"]],
-      decls: 1,
+      decls: 2,
       vars: 0,
-      consts: [[2, "background", "url('./assets/map.svg') no-repeat center center", "background-size", "contain", "width", "100%", "height", "100%"]],
+      consts: [[2, "padding", "0.5rem", "width", "100%", "height", "100%"], [2, "background", "url('./assets/map.svg') no-repeat center center", "background-size", "contain", "width", "100%", "height", "100%"]],
       template: function LeafletLayersDemoComponent_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 0);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "div", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
       },
       encapsulation: 2
@@ -918,7 +922,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
     }
 
-    function SchlandPage_ng_container_12_div_1_Template(rf, ctx) {
+    function SchlandPage_ng_container_13_div_1_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 7);
 
@@ -936,11 +940,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
     }
 
-    function SchlandPage_ng_container_12_Template(rf, ctx) {
+    function SchlandPage_ng_container_13_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, SchlandPage_ng_container_12_div_1_Template, 2, 1, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, SchlandPage_ng_container_13_div_1_Template, 2, 1, "div", 6);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
       }
@@ -1030,7 +1034,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     SchlandPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: SchlandPage,
       selectors: [["app-schland"]],
-      decls: 13,
+      decls: 14,
       vars: 4,
       consts: [["slot", "start"], [4, "ngIf"], [3, "value", "ionChange"], [3, "value", 4, "ngFor", "ngForOf"], [4, "ngFor", "ngForOf"], [3, "value"], ["style", "text-align: center; background: #BCFFF7; padding: 0.2rem; color: #002C27", 4, "ngIf"], [2, "text-align", "center", "background", "#BCFFF7", "padding", "0.2rem", "color", "#002C27"]],
       template: function SchlandPage_Template(rf, ctx) {
@@ -1075,7 +1079,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, SchlandPage_ng_container_12_Template, 2, 1, "ng-container", 4);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "div");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, SchlandPage_ng_container_13_Template, 2, 1, "ng-container", 4);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -1095,7 +1103,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.questionService.getAllMoodQuestions());
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.questionService.getAllMoodQuestions());
         }
