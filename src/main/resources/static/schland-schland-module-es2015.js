@@ -345,14 +345,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _layers_demo_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layers-demo.model */ "./src/app/schland/layers/layers-demo.model.ts");
-/* harmony import */ var _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @asymmetrik/ngx-leaflet */ "./node_modules/@asymmetrik/ngx-leaflet/__ivy_ngcc__/dist/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 
 
 
 
 
+
+const plzGeoJson = {}; // require('./plz.json');
 class LeafletLayersDemoComponent {
-    constructor() {
+    constructor(http) {
+        this.http = http;
         // Open Street Map and Open Cycle Map definitions
         this.LAYER_OCM = {
             id: 'opencyclemap',
@@ -360,8 +363,8 @@ class LeafletLayersDemoComponent {
             enabled: true,
             layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["tileLayer"])('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
                 maxZoom: 18,
-                attribution: 'Open Cycle Map'
-            })
+                attribution: 'Open Cycle Map',
+            }),
         };
         this.LAYER_OSM = {
             id: 'openstreetmap',
@@ -369,40 +372,18 @@ class LeafletLayersDemoComponent {
             enabled: false,
             layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["tileLayer"])('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
-                attribution: 'Open Street Map'
-            })
+                attribution: 'Open Street Map',
+            }),
         };
-        this.circle = {
-            id: 'circle',
-            name: 'Circle',
-            enabled: true,
-            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["circle"])([46.95, -122], { radius: 5000 })
-        };
-        this.polygon = {
-            id: 'polygon',
-            name: 'Polygon',
-            enabled: true,
-            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["polygon"])([[46.8, -121.85], [46.92, -121.92], [46.87, -121.8]])
-        };
-        this.square = {
-            id: 'square',
-            name: 'Square',
-            enabled: true,
-            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["polygon"])([[46.8, -121.55], [46.9, -121.55], [46.9, -121.7], [46.8, -121.7]])
-        };
-        this.marker = {
-            id: 'marker',
-            name: 'Marker',
-            enabled: true,
-            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["marker"])([46.879966, -121.726909], {
-                icon: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["icon"])({
-                    iconSize: [25, 41],
-                    iconAnchor: [13, 41],
-                    iconUrl: '2273e3d8ad9264b7daa5bdbf8e6b47f8.png',
-                    shadowUrl: '44a526eed258222515aa21eaffd14a96.png'
-                })
-            })
-        };
+        // layer1: any = geoJSON({
+        //     type: 'Polygon',
+        //     coordinates: [[
+        //         [-121.6, 46.87],
+        //         [-121.5, 46.87],
+        //         [-121.5, 46.93],
+        //         [-121.6, 46.89],
+        //     ]],
+        // });
         this.geoJSON = {
             id: 'geoJSON',
             name: 'Geo JSON Polygon',
@@ -413,30 +394,92 @@ class LeafletLayersDemoComponent {
                         [-121.6, 46.87],
                         [-121.5, 46.87],
                         [-121.5, 46.93],
-                        [-121.6, 46.87]
-                    ]]
-            }), { style: () => ({ color: '#ff7800' }) })
+                        [-121.6, 46.89],
+                    ]],
+            }), { style: () => ({ color: '#ff7800' }) }),
+        };
+        this.circle = {
+            id: 'circle',
+            name: 'Circle',
+            enabled: true,
+            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["circle"])([46.95, -122], { radius: 5000 }),
+        };
+        this.polygon = {
+            id: 'polygon',
+            name: 'Polygon',
+            enabled: true,
+            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["polygon"])([[46.8, -121.85], [46.92, -121.92], [46.87, -121.8]]),
+        };
+        this.square = {
+            id: 'square',
+            name: 'Square',
+            enabled: true,
+            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["polygon"])([[46.8, -121.55], [46.9, -121.55], [46.9, -121.7], [46.8, -121.7]]),
+        };
+        this.marker = {
+            id: 'marker',
+            name: 'Marker',
+            enabled: true,
+            layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["marker"])([46.879966, -121.726909], {
+                icon: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["icon"])({
+                    iconSize: [25, 41],
+                    iconAnchor: [13, 41],
+                    iconUrl: '2273e3d8ad9264b7daa5bdbf8e6b47f8.png',
+                    shadowUrl: '44a526eed258222515aa21eaffd14a96.png',
+                }),
+            }),
         };
         // Form model object
         this.model = new _layers_demo_model__WEBPACK_IMPORTED_MODULE_2__["LeafletLayersDemoModel"]([this.LAYER_OSM, this.LAYER_OCM], this.LAYER_OCM.id, [this.circle, this.polygon, this.square, this.marker, this.geoJSON]);
         this.layersControl = {
             baseLayers: {
                 'Open Street Map': this.LAYER_OSM.layer,
-                'Open Cycle Map': this.LAYER_OCM.layer
+                'Open Cycle Map': this.LAYER_OCM.layer,
             },
             overlays: {
                 Circle: this.circle.layer,
                 Square: this.square.layer,
                 Polygon: this.polygon.layer,
                 Marker: this.marker.layer,
-                GeoJSON: this.geoJSON.layer
-            }
+                GeoJSON: this.geoJSON.layer,
+            },
         };
         this.options = {
             zoom: 10,
-            center: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["latLng"])(51.9481, 10.26517),
+            //center: latLng(51.9481, 10.26517),
+            center: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["latLng"])(46.879966, -121.726909),
         };
         this.apply();
+    }
+    ngOnInit() {
+        function getFormattedDate(date) {
+            let year = date.getFullYear();
+            let month = (1 + date.getMonth()).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+            return year + "-" + month + "-" + day;
+        }
+        this.http.get(`http://${window.location.hostname}:8080/heat?responseDate=` + getFormattedDate(new Date())).toPromise()
+            .then((resp) => {
+            const wieGehtEsDirAntwortenNachPLZ = resp['72eciMp5RMiA2u5dfwgtAX'];
+            /*
+            plzGeoJson.features
+                .forEach((feature) => {
+                    this.geoJSON.layer.addLayer(geoJSON(feature.geometry, {
+                        style: () => ({color: '#dddddd'}),
+                    }));
+                });*/
+        });
+        this.geoJSON.layer.addLayer(Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["geoJSON"])(({
+            type: 'Polygon',
+            coordinates: [[
+                    [-121.6, 46.87],
+                    [-121.5, 46.87],
+                    [-121.5, 46.83],
+                    [-121.6, 46.79],
+                ]],
+        }), {
+            style: () => ({ color: '#dddddd' }),
+        }));
     }
     apply() {
         // Get the active base layer
@@ -450,19 +493,17 @@ class LeafletLayersDemoComponent {
         return false;
     }
 }
-LeafletLayersDemoComponent.ɵfac = function LeafletLayersDemoComponent_Factory(t) { return new (t || LeafletLayersDemoComponent)(); };
-LeafletLayersDemoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: LeafletLayersDemoComponent, selectors: [["leafletLayersDemo"]], decls: 1, vars: 3, consts: [["leaflet", "", 2, "height", "100%", "width", "100%", 3, "leafletOptions", "leafletLayers", "leafletLayersControl"]], template: function LeafletLayersDemoComponent_Template(rf, ctx) { if (rf & 1) {
+LeafletLayersDemoComponent.ɵfac = function LeafletLayersDemoComponent_Factory(t) { return new (t || LeafletLayersDemoComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
+LeafletLayersDemoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: LeafletLayersDemoComponent, selectors: [["leafletLayersDemo"]], decls: 1, vars: 0, consts: [[2, "background", "url('./assets/map.svg') no-repeat center center", "background-size", "contain", "width", "100%", "height", "100%"]], template: function LeafletLayersDemoComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 0);
-    } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("leafletOptions", ctx.options)("leafletLayers", ctx.layers)("leafletLayersControl", ctx.layersControl);
-    } }, directives: [_asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__["LeafletDirective"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__["LeafletLayersDirective"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__["LeafletLayersControlDirective"]], encapsulation: 2 });
+    } }, encapsulation: 2 });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](LeafletLayersDemoComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
                 selector: 'leafletLayersDemo',
-                templateUrl: './layers-demo.component.html'
+                templateUrl: './layers-demo.component.html',
             }]
-    }], function () { return []; }, null); })();
+    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
 
 
 /***/ }),

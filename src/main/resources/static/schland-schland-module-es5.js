@@ -394,17 +394,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! @asymmetrik/ngx-leaflet */
-    "./node_modules/@asymmetrik/ngx-leaflet/__ivy_ngcc__/dist/index.js");
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+    var plzGeoJson = {}; // require('./plz.json');
 
     var LeafletLayersDemoComponent =
     /*#__PURE__*/
     function () {
-      function LeafletLayersDemoComponent() {
+      function LeafletLayersDemoComponent(http) {
         _classCallCheck(this, LeafletLayersDemoComponent);
 
-        // Open Street Map and Open Cycle Map definitions
+        this.http = http; // Open Street Map and Open Cycle Map definitions
+
         this.LAYER_OCM = {
           id: 'opencyclemap',
           name: 'Open Cycle Map',
@@ -421,6 +424,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["tileLayer"])('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: 'Open Street Map'
+          })
+        }; // layer1: any = geoJSON({
+        //     type: 'Polygon',
+        //     coordinates: [[
+        //         [-121.6, 46.87],
+        //         [-121.5, 46.87],
+        //         [-121.5, 46.93],
+        //         [-121.6, 46.89],
+        //     ]],
+        // });
+
+        this.geoJSON = {
+          id: 'geoJSON',
+          name: 'Geo JSON Polygon',
+          enabled: true,
+          layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["geoJSON"])({
+            type: 'Polygon',
+            coordinates: [[[-121.6, 46.87], [-121.5, 46.87], [-121.5, 46.93], [-121.6, 46.89]]]
+          }, {
+            style: function style() {
+              return {
+                color: '#ff7800'
+              };
+            }
           })
         };
         this.circle = {
@@ -455,21 +482,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               shadowUrl: '44a526eed258222515aa21eaffd14a96.png'
             })
           })
-        };
-        this.geoJSON = {
-          id: 'geoJSON',
-          name: 'Geo JSON Polygon',
-          enabled: true,
-          layer: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["geoJSON"])({
-            type: 'Polygon',
-            coordinates: [[[-121.6, 46.87], [-121.5, 46.87], [-121.5, 46.93], [-121.6, 46.87]]]
-          }, {
-            style: function style() {
-              return {
-                color: '#ff7800'
-              };
-            }
-          })
         }; // Form model object
 
         this.model = new _layers_demo_model__WEBPACK_IMPORTED_MODULE_2__["LeafletLayersDemoModel"]([this.LAYER_OSM, this.LAYER_OCM], this.LAYER_OCM.id, [this.circle, this.polygon, this.square, this.marker, this.geoJSON]);
@@ -488,12 +500,44 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         };
         this.options = {
           zoom: 10,
-          center: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["latLng"])(51.9481, 10.26517)
+          //center: latLng(51.9481, 10.26517),
+          center: Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["latLng"])(46.879966, -121.726909)
         };
         this.apply();
       }
 
       _createClass(LeafletLayersDemoComponent, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          function getFormattedDate(date) {
+            var year = date.getFullYear();
+            var month = (1 + date.getMonth()).toString().padStart(2, '0');
+            var day = date.getDate().toString().padStart(2, '0');
+            return year + "-" + month + "-" + day;
+          }
+
+          this.http.get("http://".concat(window.location.hostname, ":8080/heat?responseDate=") + getFormattedDate(new Date())).toPromise().then(function (resp) {
+            var wieGehtEsDirAntwortenNachPLZ = resp['72eciMp5RMiA2u5dfwgtAX'];
+            /*
+            plzGeoJson.features
+                .forEach((feature) => {
+                    this.geoJSON.layer.addLayer(geoJSON(feature.geometry, {
+                        style: () => ({color: '#dddddd'}),
+                    }));
+                });*/
+          });
+          this.geoJSON.layer.addLayer(Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["geoJSON"])({
+            type: 'Polygon',
+            coordinates: [[[-121.6, 46.87], [-121.5, 46.87], [-121.5, 46.83], [-121.6, 46.79]]]
+          }, {
+            style: function style() {
+              return {
+                color: '#dddddd'
+              };
+            }
+          }));
+        }
+      }, {
         key: "apply",
         value: function apply() {
           var _this = this;
@@ -518,25 +562,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     LeafletLayersDemoComponent.ɵfac = function LeafletLayersDemoComponent_Factory(t) {
-      return new (t || LeafletLayersDemoComponent)();
+      return new (t || LeafletLayersDemoComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]));
     };
 
     LeafletLayersDemoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: LeafletLayersDemoComponent,
       selectors: [["leafletLayersDemo"]],
       decls: 1,
-      vars: 3,
-      consts: [["leaflet", "", 2, "height", "100%", "width", "100%", 3, "leafletOptions", "leafletLayers", "leafletLayersControl"]],
+      vars: 0,
+      consts: [[2, "background", "url('./assets/map.svg') no-repeat center center", "background-size", "contain", "width", "100%", "height", "100%"]],
       template: function LeafletLayersDemoComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 0);
         }
-
-        if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("leafletOptions", ctx.options)("leafletLayers", ctx.layers)("leafletLayersControl", ctx.layersControl);
-        }
       },
-      directives: [_asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__["LeafletDirective"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__["LeafletLayersDirective"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_3__["LeafletLayersControlDirective"]],
       encapsulation: 2
     });
     /*@__PURE__*/
@@ -549,7 +588,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           templateUrl: './layers-demo.component.html'
         }]
       }], function () {
-        return [];
+        return [{
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        }];
       }, null);
     })();
     /***/

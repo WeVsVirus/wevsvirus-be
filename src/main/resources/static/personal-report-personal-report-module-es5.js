@@ -1,3 +1,13 @@
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -11998,9 +12008,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 3:
                     this.moodQuestions = _context.sent;
+                    this.labels = this.questionService.getAllMoodQuestions().reduce(function (acc, q) {
+                      return Object.assign(Object.assign({}, acc), _defineProperty({}, q.id, q.question));
+                    }, {});
                     this.showChart();
 
-                  case 5:
+                  case 6:
                   case "end":
                     return _context.stop();
                 }
@@ -12011,26 +12024,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "showChart",
         value: function showChart() {
-          var dataOneQuestion = this.moodQuestions['72eciMp5RMiA2u5dfwgtAX'] || [];
-          var dataOneQuestionWithDatesConverted = dataOneQuestion.map(function (d) {
-            try {
-              return [Date.parse(d[0]), d[1]];
-            } catch (e) {
-              return [];
-            }
-          });
-          dataOneQuestionWithDatesConverted = dataOneQuestionWithDatesConverted.sort(function (a, b) {
-            return a[0] < b[0] ? 1 : -1;
-          });
+          var _this2 = this;
+
           this.chartOptions = {
             chart: {
               zoomType: 'x'
             },
             title: {
-              text: 'Wie gut geht es Dir?'
-            },
-            subtitle: {
-              text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+              text: ''
             },
             xAxis: {
               type: 'datetime'
@@ -12041,7 +12042,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }
             },
             legend: {
-              enabled: false
+              enabled: true
             },
             plotOptions: {
               area: {
@@ -12057,17 +12058,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 threshold: null
               }
             },
-            series: [{
-              type: 'line',
-              name: '',
-              data: dataOneQuestionWithDatesConverted
-            }]
-          }; // this.chartOptions = {
-          //     series: [{
-          //         data: [1, 2, 3],
-          //         type: 'line',
-          //     }],
-          // };
+            series: Object.entries(this.moodQuestions).map(function (_ref) {
+              var _ref2 = _slicedToArray(_ref, 2),
+                  id = _ref2[0],
+                  plot = _ref2[1];
+
+              return {
+                type: 'line',
+                name: _this2.labels[id],
+                data: (plot || []).map(function (d) {
+                  try {
+                    return [Date.parse(d[0]), d[1]];
+                  } catch (e) {
+                    return [];
+                  }
+                }).sort(function (a, b) {
+                  return a[0] < b[0] ? 1 : -1;
+                }).slice(0, 7)
+              };
+            })
+          };
         }
       }]);
 

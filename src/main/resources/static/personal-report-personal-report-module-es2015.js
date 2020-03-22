@@ -828,33 +828,19 @@ class PersonalReportPage {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const user = JSON.parse(window.localStorage.getItem('user'));
             this.moodQuestions = yield this.questionService.loadUserMoodQuestions(user.id);
+            this.labels = this.questionService.getAllMoodQuestions().reduce((acc, q) => {
+                return Object.assign(Object.assign({}, acc), { [q.id]: q.question });
+            }, {});
             this.showChart();
         });
     }
     showChart() {
-        const dataOneQuestion = this.moodQuestions['72eciMp5RMiA2u5dfwgtAX'] || [];
-        let dataOneQuestionWithDatesConverted = dataOneQuestion
-            .map((d) => {
-            try {
-                return [Date.parse(d[0]), d[1]];
-            }
-            catch (e) {
-                return [];
-            }
-        });
-        dataOneQuestionWithDatesConverted = dataOneQuestionWithDatesConverted.sort((a, b) => {
-            return a[0] < b[0] ? 1 : -1;
-        });
         this.chartOptions = {
             chart: {
                 zoomType: 'x',
             },
             title: {
-                text: 'Wie gut geht es Dir?',
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in',
+                text: '',
             },
             xAxis: {
                 type: 'datetime',
@@ -865,7 +851,7 @@ class PersonalReportPage {
                 },
             },
             legend: {
-                enabled: false,
+                enabled: true,
             },
             plotOptions: {
                 area: {
@@ -881,18 +867,23 @@ class PersonalReportPage {
                     threshold: null,
                 },
             },
-            series: [{
+            series: Object.entries(this.moodQuestions).map(([id, plot]) => {
+                return {
                     type: 'line',
-                    name: '',
-                    data: dataOneQuestionWithDatesConverted,
-                }],
+                    name: this.labels[id],
+                    data: (plot || []).map((d) => {
+                        try {
+                            return [Date.parse(d[0]), d[1]];
+                        }
+                        catch (e) {
+                            return [];
+                        }
+                    }).sort((a, b) => {
+                        return a[0] < b[0] ? 1 : -1;
+                    }).slice(0, 7),
+                };
+            }),
         };
-        // this.chartOptions = {
-        //     series: [{
-        //         data: [1, 2, 3],
-        //         type: 'line',
-        //     }],
-        // };
     }
 }
 PersonalReportPage.ɵfac = function PersonalReportPage_Factory(t) { return new (t || PersonalReportPage)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_question_service__WEBPACK_IMPORTED_MODULE_3__["QuestionService"])); };
