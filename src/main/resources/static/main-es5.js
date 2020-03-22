@@ -298,9 +298,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       path: 'schland',
       loadChildren: function loadChildren() {
-        return __webpack_require__.e(
+        return Promise.all(
         /*! import() | schland-schland-module */
-        "schland-schland-module").then(__webpack_require__.bind(null,
+        [__webpack_require__.e("common"), __webpack_require__.e("schland-schland-module")]).then(__webpack_require__.bind(null,
         /*! ./schland/schland.module */
         "./src/app/schland/schland.module.ts")).then(function (m) {
           return m.SchlandPageModule;

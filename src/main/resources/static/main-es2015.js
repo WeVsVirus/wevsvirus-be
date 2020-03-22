@@ -517,7 +517,7 @@ const routes = [{
         loadChildren: () => Promise.all(/*! import() | personal-report-personal-report-module */[__webpack_require__.e("common"), __webpack_require__.e("personal-report-personal-report-module")]).then(__webpack_require__.bind(null, /*! ./personal-report/personal-report.module */ "./src/app/personal-report/personal-report.module.ts")).then(m => m.PersonalReportPageModule),
     }, {
         path: 'schland',
-        loadChildren: () => __webpack_require__.e(/*! import() | schland-schland-module */ "schland-schland-module").then(__webpack_require__.bind(null, /*! ./schland/schland.module */ "./src/app/schland/schland.module.ts")).then(m => m.SchlandPageModule),
+        loadChildren: () => Promise.all(/*! import() | schland-schland-module */[__webpack_require__.e("common"), __webpack_require__.e("schland-schland-module")]).then(__webpack_require__.bind(null, /*! ./schland/schland.module */ "./src/app/schland/schland.module.ts")).then(m => m.SchlandPageModule),
     }];
 class AppRoutingModule {
 }
