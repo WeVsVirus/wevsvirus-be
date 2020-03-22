@@ -4,7 +4,8 @@ public enum Gender {
 
     MALE("MALE"),
     FEMALE("FEMALE"),
-    DIVERS("DIVERS");
+    DIVERS("DIVERS"),
+    NONE("NONE");
 
     private String value;
 
