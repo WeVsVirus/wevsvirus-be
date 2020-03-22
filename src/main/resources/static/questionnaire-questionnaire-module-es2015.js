@@ -683,7 +683,7 @@ class QuestFormComponent {
     }
 }
 QuestFormComponent.ɵfac = function QuestFormComponent_Factory(t) { return new (t || QuestFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_question_service__WEBPACK_IMPORTED_MODULE_1__["QuestionService"])); };
-QuestFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: QuestFormComponent, selectors: [["quest-form"]], outputs: { onChange: "onChange" }, decls: 6, vars: 1, consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["color", "danger", "pin", "true", 3, "ionChange"], ["slot", "end", 1, "emoji"]], template: function QuestFormComponent_Template(rf, ctx) { if (rf & 1) {
+QuestFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: QuestFormComponent, selectors: [["quest-form"]], outputs: { onChange: "onChange" }, decls: 6, vars: 1, consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["color", "secondary", "pin", "true", 3, "ionChange"], ["slot", "end", 1, "emoji"]], template: function QuestFormComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-grid");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, QuestFormComponent_ion_row_1_Template, 9, 2, "ion-row", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ion-row");
@@ -748,10 +748,7 @@ function QuestHealthComponent_ion_row_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ion-range", 3, 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ionChange", function QuestHealthComponent_ion_row_1_Template_ion_range_ionChange_6_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r20); const q_r17 = ctx.$implicit; const _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](7); const ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r19.onRangeChange(_r18, q_r17.id, $event.detail.value); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "ion-label", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9, "0\uFE0F\u20E3");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "ion-label", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -762,7 +759,7 @@ function QuestHealthComponent_ion_row_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", q_r17.question, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("max", 1200)("step", 15)("snaps", true);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](q_r17.emoji);
 } }
 class QuestHealthComponent {
@@ -790,9 +787,9 @@ class QuestHealthComponent {
     }
 }
 QuestHealthComponent.ɵfac = function QuestHealthComponent_Factory(t) { return new (t || QuestHealthComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_question_service__WEBPACK_IMPORTED_MODULE_1__["QuestionService"])); };
-QuestHealthComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: QuestHealthComponent, selectors: [["quest-health"]], outputs: { onChange: "onChange" }, decls: 6, vars: 1, consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["color", "danger", "pin", "true", 3, "max", "step", "snaps", "ionChange"], ["slider", ""], ["slot", "start", 1, "emoji"], ["slot", "end", 1, "emoji"]], template: function QuestHealthComponent_Template(rf, ctx) { if (rf & 1) {
+QuestHealthComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: QuestHealthComponent, selectors: [["quest-health"]], outputs: { onChange: "onChange" }, decls: 6, vars: 1, consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["color", "secondary", "pin", "true", 3, "max", "step", "snaps", "ionChange"], ["slider", ""], ["slot", "end", 1, "emoji"]], template: function QuestHealthComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-grid");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, QuestHealthComponent_ion_row_1_Template, 12, 5, "ion-row", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, QuestHealthComponent_ion_row_1_Template, 10, 5, "ion-row", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ion-row");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "ion-col", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "ion-button", 2);
