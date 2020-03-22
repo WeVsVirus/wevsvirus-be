@@ -47,9 +47,9 @@ public class HeatMapController {
             if (user.isPresent()) {
                 for (Response<Integer> moodResponse : result.getMoodResponses()) {
                     Map<String, ResultAggregation> plzs = questions.computeIfAbsent(moodResponse.getQuestionId(), map -> new HashMap<String, ResultAggregation>());
-                    ResultAggregation resultAggregation = plzs.computeIfAbsent(user.get().getPlz(), v -> new ResultAggregation());
+                    ResultAggregation resultAggregation = plzs.computeIfAbsent(createPlzKey(user.get()), v -> new ResultAggregation());
                     resultAggregation.add(moodResponse.getResponse());
-                    plzs.put(user.get().getPlz(), resultAggregation);
+                    plzs.put(createPlzKey(user.get()), resultAggregation);
                 }
             }
         }
@@ -68,6 +68,10 @@ public class HeatMapController {
         }
 
         return ResponseEntity.ok(response);
+    }
+
+    private String createPlzKey(PersonResource personResource) {
+        return personResource.getPlz().substring(0, 2);
     }
 
     private class ResultAggregation {
