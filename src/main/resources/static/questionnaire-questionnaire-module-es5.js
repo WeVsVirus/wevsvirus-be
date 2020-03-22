@@ -754,7 +754,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "ion-col", 1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ion-range", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ion-range", 4);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ionChange", function QuestFormComponent_ion_row_1_Template_ion_range_ionChange_6_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r15);
@@ -766,7 +766,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return ctx_r14.onRangeChange(q_r13.id, $event.detail.value);
         });
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "ion-label", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "ion-label", 5);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8);
 
@@ -834,9 +834,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       outputs: {
         onChange: "onChange"
       },
-      decls: 6,
+      decls: 9,
       vars: 1,
-      consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["color", "secondary", "pin", "true", 3, "ionChange"], ["slot", "end", 1, "emoji"]],
+      consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["expand", "full", "routerLink", "schland"], ["color", "secondary", "pin", "true", 3, "ionChange"], ["slot", "end", 1, "emoji"]],
       template: function QuestFormComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-grid");
@@ -850,6 +850,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "ion-button", 2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "Zur eigenen Auswertung");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ion-col", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "ion-button", 3);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Zur Heatmap");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -965,7 +975,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "ion-col", 1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ion-range", 3, 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ion-range", 4, 5);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ionChange", function QuestHealthComponent_ion_row_1_Template_ion_range_ionChange_6_listener($event) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r20);
@@ -979,7 +989,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return ctx_r19.onRangeChange(_r18, q_r17.id, $event.detail.value);
         });
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "ion-label", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "ion-label", 6);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
 
@@ -1054,9 +1064,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       outputs: {
         onChange: "onChange"
       },
-      decls: 6,
+      decls: 9,
       vars: 1,
-      consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["color", "secondary", "pin", "true", 3, "max", "step", "snaps", "ionChange"], ["slider", ""], ["slot", "end", 1, "emoji"]],
+      consts: [[4, "ngFor", "ngForOf"], ["size", "12"], ["expand", "full", "routerLink", "personal-report"], ["expand", "full", "routerLink", "schland"], ["color", "secondary", "pin", "true", 3, "max", "step", "snaps", "ionChange"], ["slider", ""], ["slot", "end", 1, "emoji"]],
       template: function QuestHealthComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ion-grid");
@@ -1070,6 +1080,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "ion-button", 2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "Zur eigenen Auswertung");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ion-col", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "ion-button", 3);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Zur Heatmap");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
