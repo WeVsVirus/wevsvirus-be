@@ -19,7 +19,7 @@ public class QuestionsController {
     }
 
     @PostMapping(value = "/questionnaire", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postQuestionnaireRepsonses(@RequestBody QuestionnaireResponseResource response) {
+    public ResponseEntity<?> postQuestionnaireResponses(@RequestBody QuestionnaireResponseResource response) {
         mongoTemplate.save(response);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
