@@ -8,14 +8,18 @@
 		<version>2.2.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>wirvsvirus.hack</groupId>
+	<artifactId>wevsvirus-be</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>WeVsVirus Backend</name>
+	<description>Backend component for the Stimmungsbarometer-App</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
+		<docker.repository>wevsvirus</docker.repository>
+		<docker.name>${docker.repository}/${project.artifactId}</docker.name>
+		<docker.tag>latest</docker.tag>
 	</properties>
 
 	<dependencies>
@@ -50,6 +54,53 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- Ensure the jar is unpacked before the docker image is created -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Build Docker image -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>${dockerfile-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<!--
+								Should be inserted once Repository is available:
+							-->
+							<!--
+							<goal>push</goal>
+							-->
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
+					<repository>${docker.name}</repository>
+					<tag>${docker.tag}</tag>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
