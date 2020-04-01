@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import wirvsvirus.hack.stimmungsbarometer.model.PersonResource;
 
+import javax.validation.Valid;
+
 @RestController
 public class RegistrationController {
 
@@ -18,7 +20,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody PersonResource personResource) {
+    public ResponseEntity<?> register(@RequestBody @Valid PersonResource personResource) {
         mongoTemplate.insert(personResource);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

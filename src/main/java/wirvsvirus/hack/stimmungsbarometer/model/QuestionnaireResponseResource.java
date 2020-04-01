@@ -2,6 +2,8 @@ package wirvsvirus.hack.stimmungsbarometer.model;
 
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,7 +12,11 @@ public class QuestionnaireResponseResource {
     @Id
     private String id;
 
+    @NotBlank
     private String userId;
+
+    @NotBlank
+    @Pattern(regexp = "^(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$")
     private String responseDate;
     private List<Response<Integer>> moodResponses;
     private List<Response<Double>> healthResponses;

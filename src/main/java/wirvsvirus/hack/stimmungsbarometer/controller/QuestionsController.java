@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 
+import javax.validation.Valid;
+
 @RestController
 public class QuestionsController {
 
@@ -19,7 +21,7 @@ public class QuestionsController {
     }
 
     @PostMapping(value = "/questionnaire", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postQuestionnaireResponses(@RequestBody QuestionnaireResponseResource response) {
+    public ResponseEntity<?> postQuestionnaireResponses(@Valid @RequestBody QuestionnaireResponseResource response) {
         mongoTemplate.save(response);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

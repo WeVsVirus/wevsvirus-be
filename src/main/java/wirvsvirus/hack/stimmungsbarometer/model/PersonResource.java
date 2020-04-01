@@ -2,13 +2,19 @@ package wirvsvirus.hack.stimmungsbarometer.model;
 
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 public class PersonResource {
 
     @Id
+    @NotBlank
     private String id;
 
     private Gender gender;
     private Integer yearOfBirth;
+
+    @Pattern(regexp = "\\d\\d\\d", message = "has to consist of three digits")
     private String plz;
     private Integer householdSize;
     private Boolean pet;
