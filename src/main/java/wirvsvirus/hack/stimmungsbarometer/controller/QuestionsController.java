@@ -1,5 +1,6 @@
 package wirvsvirus.hack.stimmungsbarometer.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,13 +13,10 @@ import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 public class QuestionsController {
 
-    private MongoTemplate mongoTemplate;
-
-    public QuestionsController(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }
+    private final MongoTemplate mongoTemplate;
 
     @PostMapping(value = "/questionnaire", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postQuestionnaireResponses(@Valid @RequestBody QuestionnaireResponseResource response) {

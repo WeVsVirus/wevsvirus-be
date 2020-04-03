@@ -1,4 +1,7 @@
-package wirvsvirus.hack.stimmungsbarometer.model;
+package wirvsvirus.hack.stimmungsbarometer.service.model;
+
+import wirvsvirus.hack.stimmungsbarometer.controller.model.PersonResource;
+import wirvsvirus.hack.stimmungsbarometer.controller.model.Response;
 
 import java.util.List;
 

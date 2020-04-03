@@ -1,4 +1,4 @@
-package wirvsvirus.hack.stimmungsbarometer.model;
+package wirvsvirus.hack.stimmungsbarometer.controller.model;
 
 public enum Gender {
 

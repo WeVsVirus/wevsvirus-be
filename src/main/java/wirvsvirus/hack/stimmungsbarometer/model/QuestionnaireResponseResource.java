@@ -1,6 +1,7 @@
 package wirvsvirus.hack.stimmungsbarometer.model;
 
 import org.springframework.data.annotation.Id;
+import wirvsvirus.hack.stimmungsbarometer.controller.model.Response;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
