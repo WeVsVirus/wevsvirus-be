@@ -1,28 +1,28 @@
 package wirvsvirus.hack.stimmungsbarometer.controller.model;
 
-import lombok.Data;
+import lombok.Value;
 import org.springframework.data.annotation.Id;
 import wirvsvirus.hack.stimmungsbarometer.config.ValidationPatterns;
 
 import javax.validation.constraints.*;
 
-@Data
+@Value
 public class PersonResource {
 
     @Id
     @NotBlank
-    private String id;
+    private final String id;
 
     @NotNull
-    private Gender gender;
-    private Integer yearOfBirth;
+    private final Gender gender;
+    private final Integer yearOfBirth;
 
     @Pattern(regexp = ValidationPatterns.ZIP3, message = "has to consist of three digits")
-    private String plz;
+    private final String plz;
 
     @PositiveOrZero
     @Max(10)
-    private Integer householdSize;
-    private Boolean pet;
+    private final Integer householdSize;
+    private final Boolean pet;
 
 }

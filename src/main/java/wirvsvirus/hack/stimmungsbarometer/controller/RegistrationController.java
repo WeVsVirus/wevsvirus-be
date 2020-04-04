@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import wirvsvirus.hack.stimmungsbarometer.controller.mapper.PersonMapper;
+import wirvsvirus.hack.stimmungsbarometer.common.mapper.PersonMapper;
 import wirvsvirus.hack.stimmungsbarometer.controller.model.PersonResource;
 import wirvsvirus.hack.stimmungsbarometer.service.RegistrationService;
 

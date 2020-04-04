@@ -1,14 +1,15 @@
 package wirvsvirus.hack.stimmungsbarometer.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
+import wirvsvirus.hack.stimmungsbarometer.common.mapper.QuestionnaireMapper;
+import wirvsvirus.hack.stimmungsbarometer.controller.model.QuestionnaireResponseResource;
+import wirvsvirus.hack.stimmungsbarometer.service.QuestionnaireService;
 
 import javax.validation.Valid;
 
@@ -16,11 +17,12 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class QuestionsController {
 
-    private final MongoTemplate mongoTemplate;
+    private final QuestionnaireService questionnaireService;
+    private final QuestionnaireMapper questionnaireMapper;
 
     @PostMapping(value = "/questionnaire", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postQuestionnaireResponses(@Valid @RequestBody QuestionnaireResponseResource response) {
-        mongoTemplate.save(response);
+        questionnaireService.storeAnswers(questionnaireMapper.fromControllerModelToServiceModel(response));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

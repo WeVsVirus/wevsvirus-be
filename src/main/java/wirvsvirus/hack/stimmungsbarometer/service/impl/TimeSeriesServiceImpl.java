@@ -3,8 +3,8 @@ package wirvsvirus.hack.stimmungsbarometer.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
-import wirvsvirus.hack.stimmungsbarometer.controller.model.QuestionnaireResponseResource;
 import wirvsvirus.hack.stimmungsbarometer.controller.model.Response;
+import wirvsvirus.hack.stimmungsbarometer.model.QuestionnaireResponseResource;
 import wirvsvirus.hack.stimmungsbarometer.service.TimeSeriesService;
 
 import java.util.ArrayList;
