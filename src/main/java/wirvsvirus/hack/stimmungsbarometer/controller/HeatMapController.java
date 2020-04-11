@@ -9,6 +9,8 @@ import wirvsvirus.hack.stimmungsbarometer.service.HeatMapService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +19,7 @@ public class HeatMapController {
     private final HeatMapService heatMapService;
 
     @GetMapping("/heat")
-    public ResponseEntity<?> heat(@Valid @Pattern(regexp = ValidationPatterns.PATTERN_DATE) String responseDate) {
+    public ResponseEntity<Map<String, List>> heat(@Valid @Pattern(regexp = ValidationPatterns.PATTERN_DATE) String responseDate) {
         return ResponseEntity.ok(heatMapService.heatMap(responseDate));
     }
 

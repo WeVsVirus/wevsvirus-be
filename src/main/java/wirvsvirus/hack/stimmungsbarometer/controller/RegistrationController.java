@@ -24,19 +24,18 @@ public class RegistrationController {
      */
     @PostMapping("/register")
     @Deprecated
-    public ResponseEntity<?> register(@RequestBody @Valid PersonResource personResource) {
-        registrationService.register(personMapper.fromControllerModelToServiceModel(personResource));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<Void> register(@RequestBody @Valid PersonResource personResource) {
+        return registration(personResource);
     }
 
     @PostMapping("/registrations")
-    public ResponseEntity<?> registration(@RequestBody @Valid PersonResource personResource) {
+    public ResponseEntity<Void> registration(@RequestBody @Valid PersonResource personResource) {
         registrationService.register(personMapper.fromControllerModelToServiceModel(personResource));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/registrations/{userId}")
-    public ResponseEntity<?> userData(@PathVariable String userId, @RequestParam String zip) {
+    public ResponseEntity<PersonResource> userData(@PathVariable String userId, @RequestParam String zip) {
         PersonResource person = personMapper.fromServiceModelToControllerModel(
                 registrationService.getRegisteredUser(userId, zip));
         if (Objects.isNull(person)) {

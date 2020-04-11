@@ -8,13 +8,13 @@ import wirvsvirus.hack.stimmungsbarometer.controller.model.Gender;
 
 import javax.validation.constraints.*;
 
-/**
- * should be renamed to PersonEntity and moved to service.model package
- */
 @Value
 @AllArgsConstructor
 @Builder
 @Deprecated
+/**
+ * @deprecated should be renamed to PersonEntity and moved to service.model package
+ */
 public class PersonResource {
 
     @Id

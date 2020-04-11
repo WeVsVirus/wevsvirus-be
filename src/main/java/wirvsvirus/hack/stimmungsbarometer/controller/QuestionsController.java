@@ -21,7 +21,7 @@ public class QuestionsController {
     private final QuestionnaireMapper questionnaireMapper;
 
     @PostMapping(value = "/questionnaire", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postQuestionnaireResponses(@Valid @RequestBody QuestionnaireResponseResource response) {
+    public ResponseEntity<Void> postQuestionnaireResponses(@Valid @RequestBody QuestionnaireResponseResource response) {
         questionnaireService.storeAnswers(questionnaireMapper.fromControllerModelToServiceModel(response));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

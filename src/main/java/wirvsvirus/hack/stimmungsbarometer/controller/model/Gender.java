@@ -1,5 +1,9 @@
 package wirvsvirus.hack.stimmungsbarometer.controller.model;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum Gender {
 
     MALE("MALE"),
@@ -7,13 +11,6 @@ public enum Gender {
     DIVERS("DIVERS"),
     NONE("NONE");
 
-    private String value;
-
-    Gender(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    @Getter
+    private final String value;
 }

@@ -1,10 +1,12 @@
 package wirvsvirus.hack.stimmungsbarometer.controller.model;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
 import java.util.List;
 
-@Data
+@Value
+@Builder
 public class HeatMapResultResource {
 
     private List<Response<Integer>> moodResponses;

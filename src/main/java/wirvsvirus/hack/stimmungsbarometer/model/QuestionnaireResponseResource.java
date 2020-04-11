@@ -16,6 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Deprecated
+/**
+ * @deprecated should be renamed to QuestionnaireResponseEntity and moved to service.model package
+ */
 public class QuestionnaireResponseResource {
 
     @Id
