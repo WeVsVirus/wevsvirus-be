@@ -23,7 +23,8 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     public void storeAnswers(QuestionnaireResponseResource questionnaireAnswers) {
         PersonResource person = mongoTemplate.findOne(query(where("id").is(questionnaireAnswers.getUserId())), PersonResource.class);
         if (Objects.nonNull(person)) {
-            mongoTemplate.save(questionnaireAnswers);
+            QuestionnaireResponseResource enriched = questionnaireAnswers.withZip3(person.getPlz()).withZip2(person.getPlz().substring(0, 2));
+            mongoTemplate.save(enriched);
         } else {
             throw new UserNotFoundException(questionnaireAnswers.getUserId());
         }

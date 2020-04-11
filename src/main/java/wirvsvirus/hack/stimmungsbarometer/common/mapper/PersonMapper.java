@@ -6,5 +6,10 @@ import wirvsvirus.hack.stimmungsbarometer.model.PersonResource;
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
 
-    PersonResource fromControllerModelToServiceModel(wirvsvirus.hack.stimmungsbarometer.controller.model.PersonResource controllerModel);
+    PersonResource fromControllerModelToServiceModel(
+            wirvsvirus.hack.stimmungsbarometer.controller.model.PersonResource controllerModel);
+
+    wirvsvirus.hack.stimmungsbarometer.controller.model.PersonResource fromServiceModelToControllerModel(
+            PersonResource serviceModel);
+
 }

@@ -1,5 +1,6 @@
 package wirvsvirus.hack.stimmungsbarometer.controller.model;
 
+import lombok.Builder;
 import lombok.Value;
 import org.springframework.data.annotation.Id;
 import wirvsvirus.hack.stimmungsbarometer.config.ValidationPatterns;
@@ -7,6 +8,7 @@ import wirvsvirus.hack.stimmungsbarometer.config.ValidationPatterns;
 import javax.validation.constraints.*;
 
 @Value
+@Builder
 public class PersonResource {
 
     @Id

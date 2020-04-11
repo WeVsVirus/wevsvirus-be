@@ -3,6 +3,7 @@ package wirvsvirus.hack.stimmungsbarometer.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
+import lombok.With;
 import org.springframework.data.annotation.Id;
 import wirvsvirus.hack.stimmungsbarometer.controller.model.Response;
 
@@ -29,4 +30,11 @@ public class QuestionnaireResponseResource {
     private final List<Response<Integer>> moodResponses;
     private final List<Response<Double>> healthResponses;
     private final LocalDateTime updatedAt;
+
+    @With
+    private final String zip2;
+
+    @With
+    private final String zip3;
+
 }
