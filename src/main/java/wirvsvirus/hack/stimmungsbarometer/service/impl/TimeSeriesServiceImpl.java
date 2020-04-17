@@ -22,17 +22,14 @@ public class TimeSeriesServiceImpl implements TimeSeriesService {
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public Map<String, List> moodListForUser(String userId) {
+    public Map<String, Map> moodListForUser(String userId) {
         List<QuestionnaireResponseResource> result = mongoTemplate.find(query(where("userId").is(userId)), QuestionnaireResponseResource.class);
 
-        Map<String, List> response = new HashMap<>();
+        Map<String, Map> response = new HashMap<>();
         for (QuestionnaireResponseResource r : result) {
             for (Response<Integer> integerResponse : r.getMoodResponses()) {
-                List inner = response.computeIfAbsent(integerResponse.getQuestionId(), map -> new ArrayList());
-                List inn = new ArrayList();
-                inn.add(r.getResponseDate());
-                inn.add(integerResponse.getResponse());
-                inner.add(inn);
+                Map innerMap = response.computeIfAbsent(integerResponse.getQuestionId(), map -> new HashMap());
+                innerMap.put(r.getResponseDate(), integerResponse.getResponse());
             }
         }
 

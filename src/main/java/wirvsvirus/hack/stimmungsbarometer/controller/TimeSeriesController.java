@@ -16,7 +16,7 @@ public class TimeSeriesController {
     private final TimeSeriesService timeSeriesService;
 
     @GetMapping("/mood")
-    public ResponseEntity<Map<String, List>> mood(String id) {
+    public ResponseEntity<Map<String, Map>> mood(String id) {
         return ResponseEntity.ok(timeSeriesService.moodListForUser(id));
     }
 
