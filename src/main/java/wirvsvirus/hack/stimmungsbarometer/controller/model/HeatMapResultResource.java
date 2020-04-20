@@ -10,6 +10,6 @@ import java.util.List;
 public class HeatMapResultResource {
 
     private List<Response<Integer>> moodResponses;
-    private List<PersonResource> users;
+    private List<RegistrationResource> users;
 
 }

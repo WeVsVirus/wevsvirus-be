@@ -1,6 +1,7 @@
 package wirvsvirus.hack.stimmungsbarometer.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import wirvsvirus.hack.stimmungsbarometer.model.PersonResource;
@@ -11,12 +12,14 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class RegistrationServiceImpl implements RegistrationService {
 
     private final MongoTemplate mongoTemplate;
 
     @Override
     public void register(PersonResource personResource) {
+        log.debug("Registration started with ID:'{}'", personResource.getId());
         mongoTemplate.insert(personResource);
     }
 

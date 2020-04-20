@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 
 @Value
 @Builder
-public class PersonResource {
+public class RegistrationResource {
 
     @Id
     @NotBlank

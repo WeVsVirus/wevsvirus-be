@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Component;
 import wirvsvirus.hack.stimmungsbarometer.controller.model.HeatMapResultResource;
-import wirvsvirus.hack.stimmungsbarometer.controller.model.PersonResource;
+import wirvsvirus.hack.stimmungsbarometer.controller.model.RegistrationResource;
 import wirvsvirus.hack.stimmungsbarometer.controller.model.Response;
 import wirvsvirus.hack.stimmungsbarometer.service.HeatMapService;
 
@@ -32,7 +32,7 @@ public class HeatMapServiceImpl implements HeatMapService {
 
         Map<String, Map<String, HeatMapServiceImpl.ResultAggregation>> questions = new HashMap<>();
         for (HeatMapResultResource result : results) {
-            Optional<PersonResource> user = result.getUsers().stream().findFirst();
+            Optional<RegistrationResource> user = result.getUsers().stream().findFirst();
             if (user.isPresent()) {
                 for (Response<Integer> moodResponse : result.getMoodResponses()) {
                     Map<String, HeatMapServiceImpl.ResultAggregation> plzs = questions.computeIfAbsent(moodResponse.getQuestionId(), map -> new HashMap<String, HeatMapServiceImpl.ResultAggregation>());
@@ -59,12 +59,12 @@ public class HeatMapServiceImpl implements HeatMapService {
         return response;
     }
 
-    private String createPlzKey(PersonResource personResource) {
-        return personResource.getPlz().substring(0, 2);
+    private String createPlzKey(RegistrationResource registrationResource) {
+        return registrationResource.getPlz().substring(0, 2);
     }
 
     private class ResultAggregation {
-        private List<Integer> values = new ArrayList<>();
+        private final List<Integer> values = new ArrayList<>();
 
         private ResultAggregation() {
 
