@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/framework-delegate-c2e2e1f4.js":
+/***/ "./node_modules/@ionic/core/dist/esm/framework-delegate-d1eb6504.js":
 /*!**************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-c2e2e1f4.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-d1eb6504.js ***!
   \**************************************************************************/
 /*! exports provided: a, d */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -49,9 +49,9 @@ const detachComponent = (delegate, element) => {
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm/haptic-c8f1473e.js":
+/***/ "./node_modules/@ionic/core/dist/esm/haptic-ccbda579.js":
 /*!**************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/haptic-c8f1473e.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/haptic-ccbda579.js ***!
   \**************************************************************/
 /*! exports provided: a, b, c, h */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -110,9 +110,9 @@ const hapticSelectionEnd = () => {
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm/index-3476b023.js":
+/***/ "./node_modules/@ionic/core/dist/esm/index-729ec402.js":
 /*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-3476b023.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/index-729ec402.js ***!
   \*************************************************************/
 /*! exports provided: s */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -236,226 +236,9 @@ const blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'emb
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm/index-3528f139.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-3528f139.js ***!
-  \*************************************************************/
-/*! exports provided: d, g, l, s, t */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return deepReady; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getIonPageElement; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return lifecycle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return setPageHidden; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return transition; });
-/* harmony import */ var _core_80bde1aa_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-80bde1aa.js */ "./node_modules/@ionic/core/dist/esm/core-80bde1aa.js");
-/* harmony import */ var _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants-3c3e1099.js */ "./node_modules/@ionic/core/dist/esm/constants-3c3e1099.js");
-
-
-
-const iosTransitionAnimation = () => __webpack_require__.e(/*! import() | ios-transition-1850e475-js */ "ios-transition-1850e475-js").then(__webpack_require__.bind(null, /*! ./ios.transition-1850e475.js */ "./node_modules/@ionic/core/dist/esm/ios.transition-1850e475.js"));
-const mdTransitionAnimation = () => __webpack_require__.e(/*! import() | md-transition-083fcf52-js */ "md-transition-083fcf52-js").then(__webpack_require__.bind(null, /*! ./md.transition-083fcf52.js */ "./node_modules/@ionic/core/dist/esm/md.transition-083fcf52.js"));
-const transition = (opts) => {
-    return new Promise((resolve, reject) => {
-        Object(_core_80bde1aa_js__WEBPACK_IMPORTED_MODULE_0__["w"])(() => {
-            beforeTransition(opts);
-            runTransition(opts).then(result => {
-                if (result.animation) {
-                    result.animation.destroy();
-                }
-                afterTransition(opts);
-                resolve(result);
-            }, error => {
-                afterTransition(opts);
-                reject(error);
-            });
-        });
-    });
-};
-const beforeTransition = (opts) => {
-    const enteringEl = opts.enteringEl;
-    const leavingEl = opts.leavingEl;
-    setZIndex(enteringEl, leavingEl, opts.direction);
-    if (opts.showGoBack) {
-        enteringEl.classList.add('can-go-back');
-    }
-    else {
-        enteringEl.classList.remove('can-go-back');
-    }
-    setPageHidden(enteringEl, false);
-    if (leavingEl) {
-        setPageHidden(leavingEl, false);
-    }
-};
-const runTransition = async (opts) => {
-    const animationBuilder = await getAnimationBuilder(opts);
-    const ani = (animationBuilder)
-        ? animation(animationBuilder, opts)
-        : noAnimation(opts); // fast path for no animation
-    return ani;
-};
-const afterTransition = (opts) => {
-    const enteringEl = opts.enteringEl;
-    const leavingEl = opts.leavingEl;
-    enteringEl.classList.remove('ion-page-invisible');
-    if (leavingEl !== undefined) {
-        leavingEl.classList.remove('ion-page-invisible');
-    }
-};
-const getAnimationBuilder = async (opts) => {
-    if (!opts.leavingEl || !opts.animated || opts.duration === 0) {
-        return undefined;
-    }
-    if (opts.animationBuilder) {
-        return opts.animationBuilder;
-    }
-    const getAnimation = (opts.mode === 'ios')
-        ? (await iosTransitionAnimation()).iosTransitionAnimation
-        : (await mdTransitionAnimation()).mdTransitionAnimation;
-    return getAnimation;
-};
-const animation = async (animationBuilder, opts) => {
-    await waitForReady(opts, true);
-    const trans = animationBuilder(opts.baseEl, opts);
-    fireWillEvents(opts.enteringEl, opts.leavingEl);
-    const didComplete = await playTransition(trans, opts);
-    if (opts.progressCallback) {
-        opts.progressCallback(undefined);
-    }
-    if (didComplete) {
-        fireDidEvents(opts.enteringEl, opts.leavingEl);
-    }
-    return {
-        hasCompleted: didComplete,
-        animation: trans
-    };
-};
-const noAnimation = async (opts) => {
-    const enteringEl = opts.enteringEl;
-    const leavingEl = opts.leavingEl;
-    await waitForReady(opts, false);
-    fireWillEvents(enteringEl, leavingEl);
-    fireDidEvents(enteringEl, leavingEl);
-    return {
-        hasCompleted: true
-    };
-};
-const waitForReady = async (opts, defaultDeep) => {
-    const deep = opts.deepWait !== undefined ? opts.deepWait : defaultDeep;
-    const promises = deep ? [
-        deepReady(opts.enteringEl),
-        deepReady(opts.leavingEl),
-    ] : [
-        shallowReady(opts.enteringEl),
-        shallowReady(opts.leavingEl),
-    ];
-    await Promise.all(promises);
-    await notifyViewReady(opts.viewIsReady, opts.enteringEl);
-};
-const notifyViewReady = async (viewIsReady, enteringEl) => {
-    if (viewIsReady) {
-        await viewIsReady(enteringEl);
-    }
-};
-const playTransition = (trans, opts) => {
-    const progressCallback = opts.progressCallback;
-    const promise = new Promise(resolve => {
-        trans.onFinish((currentStep) => resolve(currentStep === 1));
-    });
-    // cool, let's do this, start the transition
-    if (progressCallback) {
-        // this is a swipe to go back, just get the transition progress ready
-        // kick off the swipe animation start
-        trans.progressStart(true);
-        progressCallback(trans);
-    }
-    else {
-        // only the top level transition should actually start "play"
-        // kick it off and let it play through
-        // ******** DOM WRITE ****************
-        trans.play();
-    }
-    // create a callback for when the animation is done
-    return promise;
-};
-const fireWillEvents = (enteringEl, leavingEl) => {
-    lifecycle(leavingEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_1__["b"]);
-    lifecycle(enteringEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_1__["L"]);
-};
-const fireDidEvents = (enteringEl, leavingEl) => {
-    lifecycle(enteringEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_1__["a"]);
-    lifecycle(leavingEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_1__["c"]);
-};
-const lifecycle = (el, eventName) => {
-    if (el) {
-        const ev = new CustomEvent(eventName, {
-            bubbles: false,
-            cancelable: false,
-        });
-        el.dispatchEvent(ev);
-    }
-};
-const shallowReady = (el) => {
-    if (el && el.componentOnReady) {
-        return el.componentOnReady();
-    }
-    return Promise.resolve();
-};
-const deepReady = async (el) => {
-    const element = el;
-    if (element) {
-        if (element.componentOnReady != null) {
-            const stencilEl = await element.componentOnReady();
-            if (stencilEl != null) {
-                return;
-            }
-        }
-        await Promise.all(Array.from(element.children).map(deepReady));
-    }
-};
-const setPageHidden = (el, hidden) => {
-    if (hidden) {
-        el.setAttribute('aria-hidden', 'true');
-        el.classList.add('ion-page-hidden');
-    }
-    else {
-        el.hidden = false;
-        el.removeAttribute('aria-hidden');
-        el.classList.remove('ion-page-hidden');
-    }
-};
-const setZIndex = (enteringEl, leavingEl, direction) => {
-    if (enteringEl !== undefined) {
-        enteringEl.style.zIndex = (direction === 'back')
-            ? '99'
-            : '101';
-    }
-    if (leavingEl !== undefined) {
-        leavingEl.style.zIndex = '100';
-    }
-};
-const getIonPageElement = (element) => {
-    if (element.classList.contains('ion-page')) {
-        return element;
-    }
-    const ionPage = element.querySelector(':scope > .ion-page, :scope > ion-nav, :scope > ion-tabs');
-    if (ionPage) {
-        return ionPage;
-    }
-    // idk, return the original element so at least something animates and we don't have a null pointer
-    return element;
-};
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ionic/core/dist/esm/spinner-configs-28520d80.js":
+/***/ "./node_modules/@ionic/core/dist/esm/spinner-configs-c78e170e.js":
 /*!***********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/spinner-configs-28520d80.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/spinner-configs-c78e170e.js ***!
   \***********************************************************************/
 /*! exports provided: S */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -577,9 +360,9 @@ const SPINNERS = spinners;
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js":
+/***/ "./node_modules/@ionic/core/dist/esm/theme-c2dc54d9.js":
 /*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/theme-c2dc54d9.js ***!
   \*************************************************************/
 /*! exports provided: c, g, h, o */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -632,93 +415,6 @@ const openURL = async (url, ev, direction) => {
 };
 
 
-
-
-/***/ }),
-
-/***/ "./src/app/explore-container/explore-container.component.ts":
-/*!******************************************************************!*\
-  !*** ./src/app/explore-container/explore-container.component.ts ***!
-  \******************************************************************/
-/*! exports provided: ExploreContainerComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExploreContainerComponent", function() { return ExploreContainerComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-
-
-class ExploreContainerComponent {
-    constructor() {
-    }
-    ngOnInit() { }
-}
-ExploreContainerComponent.ɵfac = function ExploreContainerComponent_Factory(t) { return new (t || ExploreContainerComponent)(); };
-ExploreContainerComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ExploreContainerComponent, selectors: [["app-explore-container"]], inputs: { name: "name" }, decls: 7, vars: 1, consts: [["id", "container"], ["target", "_blank", "rel", "noopener noreferrer", "href", "https://ionicframework.com/docs/components"]], template: function ExploreContainerComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "strong");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, "Explore ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "a", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "UI Components");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.name);
-    } }, styles: ["#container[_ngcontent-%COMP%] {\n  text-align: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n\n#container[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  font-size: 20px;\n  line-height: 26px;\n}\n\n#container[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  line-height: 22px;\n  color: #8c8c8c;\n  margin: 0;\n}\n\n#container[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  text-decoration: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9rc2NoZWNrZXIvUHJvamVjdHMvd2lydnN2aXJ1cy93ZXZzdmlydXMtZmUvc3JjL2FwcC9leHBsb3JlLWNvbnRhaW5lci9leHBsb3JlLWNvbnRhaW5lci5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvZXhwbG9yZS1jb250YWluZXIvZXhwbG9yZS1jb250YWluZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBQTtFQUVBLGtCQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxRQUFBO0VBQ0EsbUNBQUE7VUFBQSwyQkFBQTtBQ0FGOztBREdBO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0FDQUY7O0FER0E7RUFDRSxlQUFBO0VBQ0EsaUJBQUE7RUFFQSxjQUFBO0VBRUEsU0FBQTtBQ0ZGOztBREtBO0VBQ0UscUJBQUE7QUNGRiIsImZpbGUiOiJzcmMvYXBwL2V4cGxvcmUtY29udGFpbmVyL2V4cGxvcmUtY29udGFpbmVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcblxuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICB0b3A6IDUwJTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKC01MCUpO1xufVxuXG4jY29udGFpbmVyIHN0cm9uZyB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgbGluZS1oZWlnaHQ6IDI2cHg7XG59XG5cbiNjb250YWluZXIgcCB7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgbGluZS1oZWlnaHQ6IDIycHg7XG5cbiAgY29sb3I6ICM4YzhjOGM7XG5cbiAgbWFyZ2luOiAwO1xufVxuXG4jY29udGFpbmVyIGEge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59IiwiI2NvbnRhaW5lciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgdG9wOiA1MCU7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgtNTAlKTtcbn1cblxuI2NvbnRhaW5lciBzdHJvbmcge1xuICBmb250LXNpemU6IDIwcHg7XG4gIGxpbmUtaGVpZ2h0OiAyNnB4O1xufVxuXG4jY29udGFpbmVyIHAge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGxpbmUtaGVpZ2h0OiAyMnB4O1xuICBjb2xvcjogIzhjOGM4YztcbiAgbWFyZ2luOiAwO1xufVxuXG4jY29udGFpbmVyIGEge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59Il19 */"] });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ExploreContainerComponent, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
-        args: [{
-                selector: 'app-explore-container',
-                templateUrl: './explore-container.component.html',
-                styleUrls: ['./explore-container.component.scss'],
-            }]
-    }], function () { return []; }, { name: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }] }); })();
-
-
-/***/ }),
-
-/***/ "./src/app/explore-container/explore-container.module.ts":
-/*!***************************************************************!*\
-  !*** ./src/app/explore-container/explore-container.module.ts ***!
-  \***************************************************************/
-/*! exports provided: ExploreContainerComponentModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExploreContainerComponentModule", function() { return ExploreContainerComponentModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-/* harmony import */ var _explore_container_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./explore-container.component */ "./src/app/explore-container/explore-container.component.ts");
-
-
-
-
-
-
-class ExploreContainerComponentModule {
-}
-ExploreContainerComponentModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: ExploreContainerComponentModule });
-ExploreContainerComponentModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function ExploreContainerComponentModule_Factory(t) { return new (t || ExploreContainerComponentModule)(); }, imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"],]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](ExploreContainerComponentModule, { declarations: [_explore_container_component__WEBPACK_IMPORTED_MODULE_4__["ExploreContainerComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"]], exports: [_explore_container_component__WEBPACK_IMPORTED_MODULE_4__["ExploreContainerComponent"]] }); })();
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ExploreContainerComponentModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
-        args: [{
-                imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["IonicModule"],],
-                declarations: [_explore_container_component__WEBPACK_IMPORTED_MODULE_4__["ExploreContainerComponent"]],
-                exports: [_explore_container_component__WEBPACK_IMPORTED_MODULE_4__["ExploreContainerComponent"]]
-            }]
-    }], null, null); })();
 
 
 /***/ })
