@@ -1,63 +1,36 @@
 package wirvsvirus.hack.stimmungsbarometer.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
 import org.springframework.data.annotation.Id;
+import wirvsvirus.hack.stimmungsbarometer.controller.model.Gender;
 
+import javax.validation.constraints.*;
+
+@Value
+@AllArgsConstructor
+@Builder
+@Deprecated
+/**
+ * @deprecated should be renamed to PersonEntity and moved to service.model package
+ */
 public class PersonResource {
 
     @Id
+    @NotBlank
     private String id;
 
+    @NotNull
     private Gender gender;
     private Integer yearOfBirth;
+
+    @Pattern(regexp = "\\d\\d\\d", message = "has to consist of three digits")
     private String plz;
+
+    @PositiveOrZero
+    @Max(10)
     private Integer householdSize;
     private Boolean pet;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public Integer getYearOfBirth() {
-        return yearOfBirth;
-    }
-
-    public void setYearOfBirth(Integer yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
-    }
-
-    public String getPlz() {
-        return plz;
-    }
-
-    public void setPlz(String plz) {
-        this.plz = plz;
-    }
-
-    public Integer getHouseholdSize() {
-        return householdSize;
-    }
-
-    public void setHouseholdSize(Integer householdSize) {
-        this.householdSize = householdSize;
-    }
-
-    public Boolean getPet() {
-        return pet;
-    }
-
-    public void setPet(Boolean pet) {
-        this.pet = pet;
-    }
 }

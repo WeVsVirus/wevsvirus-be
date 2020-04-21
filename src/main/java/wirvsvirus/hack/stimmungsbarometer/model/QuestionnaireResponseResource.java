@@ -1,60 +1,43 @@
 package wirvsvirus.hack.stimmungsbarometer.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
+import lombok.With;
 import org.springframework.data.annotation.Id;
+import wirvsvirus.hack.stimmungsbarometer.controller.model.Response;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Value
+@AllArgsConstructor
+@Builder
+@Deprecated
+/**
+ * @deprecated should be renamed to QuestionnaireResponseEntity and moved to service.model package
+ */
 public class QuestionnaireResponseResource {
 
     @Id
-    private String id;
+    private final String id;
 
-    private String userId;
-    private String responseDate;
-    private List<Response<Integer>> moodResponses;
-    private List<Response<Double>> healthResponses;
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @NotBlank
+    private final String userId;
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+    @NotBlank
+    @Pattern(regexp = "^(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$")
+    private final String responseDate;
+    private final List<Response<Integer>> moodResponses;
+    private final List<Response<Double>> healthResponses;
+    private final LocalDateTime updatedAt;
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    @With
+    private final String zip2;
 
-    public String getUserId() {
-        return userId;
-    }
+    @With
+    private final String zip3;
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-        this.id = (null == userId ? "" : userId) + (null == responseDate ? "" : responseDate);
-    }
-
-    public String getResponseDate() {
-        return responseDate;
-    }
-
-    public void setResponseDate(String responseDate) {
-        this.responseDate = responseDate;
-        this.id = (null == userId ? "" : userId) + (null == responseDate ? "" : responseDate);
-    }
-
-    public List<Response<Integer>> getMoodResponses() {
-        return moodResponses;
-    }
-
-    public void setMoodResponses(List<Response<Integer>> moodResponses) {
-        this.moodResponses = moodResponses;
-    }
-
-    public List<Response<Double>> getHealthResponses() {
-        return healthResponses;
-    }
-
-    public void setHealthResponses(List<Response<Double>> healthResponses) {
-        this.healthResponses = healthResponses;
-    }
 }

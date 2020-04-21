@@ -3,12 +3,14 @@ package wirvsvirus.hack.stimmungsbarometer.config;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@EnableConfigurationProperties
 public class AppConfig {
 
     @Value("${password}")
@@ -33,3 +35,6 @@ public class AppConfig {
         };
     }
 }
+
+
+

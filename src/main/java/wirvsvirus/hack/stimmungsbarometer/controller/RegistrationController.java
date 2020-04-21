@@ -1,26 +1,47 @@
 package wirvsvirus.hack.stimmungsbarometer.controller;
 
-import org.springframework.data.mongodb.core.MongoTemplate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import wirvsvirus.hack.stimmungsbarometer.model.PersonResource;
+import org.springframework.web.bind.annotation.*;
+import wirvsvirus.hack.stimmungsbarometer.common.mapper.PersonMapper;
+import wirvsvirus.hack.stimmungsbarometer.controller.model.RegistrationResource;
+import wirvsvirus.hack.stimmungsbarometer.service.RegistrationService;
+
+import javax.validation.Valid;
+import java.util.Objects;
 
 @RestController
+@RequiredArgsConstructor
 public class RegistrationController {
 
-    private MongoTemplate mongoTemplate;
+    private final RegistrationService registrationService;
+    private final PersonMapper personMapper;
 
-    public RegistrationController(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
+
+    /***
+     * @deprecated register is not an entity, therefore it is not restful. Use "/registration" instead (@see #registration)
+     */
+    @PostMapping("/register")
+    @Deprecated
+    public ResponseEntity<Void> register(@RequestBody @Valid RegistrationResource registrationResource) {
+        return registration(registrationResource);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody PersonResource personResource) {
-        mongoTemplate.insert(personResource);
+    @PostMapping("/registrations")
+    public ResponseEntity<Void> registration(@RequestBody @Valid RegistrationResource registrationResource) {
+        registrationService.register(personMapper.fromControllerModelToServiceModel(registrationResource));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @GetMapping("/registrations/{userId}")
+    public ResponseEntity<RegistrationResource> userData(@PathVariable String userId, @RequestParam String zip) {
+        RegistrationResource person = personMapper.fromServiceModelToControllerModel(
+                registrationService.getRegisteredUser(userId, zip));
+        if (Objects.isNull(person)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(person);
+        }
+    }
 }
